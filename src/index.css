@@ -1,0 +1,45 @@
+* {
+  margin:  0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: system-ui;
+}
+
+.app {
+  align-items: center;
+  display: grid;
+  justify-content: center;
+  border: 1px solid red;
+}
+
+h1 {
+  padding-bottom:3%;
+}
+
+.input-forum {
+  display: grid;
+  align-items: center;
+  padding-bottom: 10%;
+  border: 1px solid greenyellow;
+}
+.input-forum button {
+  flex: 1 1 0%;
+}
+
+.output-area {
+  font-size: larger;
+}
+
+/* alter the size of the textbox*/
+input[type="text"] {
+  width: 100%;
+}
+
+
+/*a neat way to add h-space between elements in a line <div class="divider"/>
+*/
+.divider{
+  width:15px;
+  height:auto;
+  display:inline-block;
+}
