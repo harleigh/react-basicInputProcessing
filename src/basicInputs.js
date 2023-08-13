@@ -94,7 +94,7 @@ function FloatTextOnlyDynamic({numVal, setNumVal, setErrorInNumber}){
 //"export default"  makes this the main component in the file.
 //returns a component that contains the filter table with a little
 //header above
-export default function ProduceManager() {
+export default function VariousInputsExamples() {
 
     const [userName, setUserName] = useState("")
     const [userNum, setUserNum] = useState("")
