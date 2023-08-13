@@ -3,7 +3,10 @@
 //yet being paved; as I am learning, all code and documentation are "as is"
 
 /**
- * Using Reference Fields
+ * This project works with basic versions of <input>
+ * --<input> version where reload only occurs on hitting a button
+ * --<input> version where state is updated for each key entered in the text field\
+ * --<input> version where only a floating point number is allowed
  */
 
 import { useState, useRef } from "react";
@@ -31,7 +34,7 @@ function TextViaReference({ setNameState}) {
                         placeholder="Entry..."
                         onKeyDown={handleKeyDownUserInput}
                         ref={userTextRef}/>  
-        <button onClick={()=> console.log(userTextRef.current.value)}> Submit </button>
+        <button onClick={()=> setNameState(userTextRef.current.value)}> Submit </button>
         </>
     )
 }
@@ -53,15 +56,50 @@ function TextViaDynamic({name, setNameState}){
     )
 }
 
+/**
+ * This text box only takes floating point numbers, and (for fun)
+ * sets an error flag if the user attempted to type a non-floating
+ * number into the box 
+ */
+function FloatTextOnlyDynamic({numVal, setNumVal, setErrorInNumber}){
+    const floatRegExExpr = /^[+-]?([0-9]+([.][0-9]*)?|[.][0-9]+)$/
+
+    const handelNumEntry = (event) => {
+        const enteredVal = event.target.value;
+
+        const passedTest = floatRegExExpr.test(enteredVal)
+
+        if(enteredVal==="" || passedTest){
+            setErrorInNumber(false)
+            setNumVal(enteredVal)
+        }
+        if(!passedTest){
+            setErrorInNumber(true)
+        }
+    }
+
+    return(
+        <>
+        <label htmlFor="floatBox">Give Floating Number: &nbsp;</label>
+                <input type="text"
+                    id="floatBox"
+                    placeholder="Entry..."
+                    value={numVal}
+                    onChange={handelNumEntry}/>
+        </>
+    )
+}
+
+
 //"export default"  makes this the main component in the file.
 //returns a component that contains the filter table with a little
 //header above
 export default function ProduceManager() {
 
     const [userName, setUserName] = useState("")
+    const [userNum, setUserNum] = useState("")
+    const [errorInNum, setErrorInNum] = useState(false)
     
-
-    //value places into the text box
     return (
         <>
         <div className="app">
@@ -74,8 +112,16 @@ export default function ProduceManager() {
                 <TextViaDynamic name={userName} setNameState={setUserName}/>
             </div>
 
+            <div className="input-form">
+                <FloatTextOnlyDynamic numVal={userNum}
+                                      setNumVal={setUserNum}
+                                      setErrorInNumber={setErrorInNum}/>
+            </div>
+
             <div className="output-area">
-                <div>{ userName!==""?"You entered: " + userName:"" }</div>
+                <div>{ userName!==""?"Entered Name: " + userName:"" }</div>
+                <div>{ userNum!==""?"Entered NNumber: " + userNum:"" }</div>
+                <div>{errorInNum ? "Invalid Keystroke in Number Field Was Detected Check Your Entry":"" }</div>
             </div>
         </div>
         </>

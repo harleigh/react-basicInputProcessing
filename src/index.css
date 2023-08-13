@@ -27,7 +27,11 @@ h1 {
 }
 
 .output-area {
+  display: grid;
   font-size: larger;
+  overflow-wrap: break-word;
+  hyphens: manual;
+  width: 300px;
 }
 
 /* alter the size of the textbox*/
